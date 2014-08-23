@@ -6,7 +6,7 @@ This is a repository for storing all scripts and code book for the assignment cl
 ## Steps 1 & 2 are scripts for setting the working directory and downloading the file from website
 
 ###Step 1
-####download data from the net using the download command
+####Download data from the net using the download command
 
 setwd("D:/R/")
 setInternet2(T) ## This command is required to set the internet2 environment variable in windows for R
@@ -70,13 +70,13 @@ for (i in 1:7352) {
   else  {y_train$V1[i] <- paste("LAYING")}
 }
 
-# Naming the x_train data with the features dataframe
+#### Naming the x_train data with the features dataframe
 y <- names(X_train)
 for (i in 1:561) { y[i] <- paste(features[i,2])}
 names(X_train) <- c(y)
 
 
-# Combining y_train with X_train to get the labels on to the training data
+#### Combining y_train with X_train to get the labels on to the training data
 names(subject_train) <- c("subject")
 names(y_train) <- c("Activity")
 new_x_train <- cbind(y_train,subject_train,X_train)
