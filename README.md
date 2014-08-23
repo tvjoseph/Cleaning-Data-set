@@ -3,10 +3,10 @@ Cleaning-Data-set
 
 This is a repository for storing all scripts and code book for the assignment cleaning data set
 
-# Steps 1 & 2 are scripts for setting the working directory and downloading the file from website
+## Steps 1 & 2 are scripts for setting the working directory and downloading the file from website
 
 ###Step 1
-#download data from the net using the download command
+####download data from the net using the download command
 
 setwd("D:/R/")
 setInternet2(T) ## This command is required to set the internet2 environment variable in windows for R
@@ -15,16 +15,16 @@ filename <- "20dataset.zip"
 
 download.file(fileurl,destfile = filename)
 
-# Step 2 - Read the features and labels data and store in a table
+### Step 2 - Read the features and labels data and store in a table
 
 features <- read.table("./UCI HAR Dataset/features.txt")
 labels <- read.table("./UCI HAR Dataset/activity_labels.txt")
 
 ## Step 3 & 4 are scripts for reading the text files into tables in R
 
-# Step 3 - For training data
+### Step 3 - For training data
 
-# Reading all Training related data into various tables
+#### Reading all Training related data into various tables
 subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt")
 X_train <- read.table("./UCI HAR Dataset/train/X_train.txt")
 y_train <- read.table("./UCI HAR Dataset/train/y_train.txt")
@@ -38,8 +38,8 @@ totalacc_x_train <- read.table("./UCI HAR Dataset/train/Inertial Signals/total_a
 totalacc_y_train <- read.table("./UCI HAR Dataset/train/Inertial Signals/total_acc_y_train.txt")
 totalacc_z_train <- read.table("./UCI HAR Dataset/train/Inertial Signals/total_acc_z_train.txt")
 
-# Step 4 - For test data
-# Reading all the test related data into a table
+### Step 4 - For test data
+#### Reading all the test related data into a table
 subject_test <- read.table("./UCI HAR Dataset/test/subject_test.txt")
 X_test <- read.table("./UCI HAR Dataset/test/X_test.txt")
 y_test <- read.table("./UCI HAR Dataset/test/y_test.txt")
@@ -55,11 +55,11 @@ totalacc_z_test <- read.table("./UCI HAR Dataset/test/Inertial Signals/total_acc
 
 ## Step 5 & 6 are scripts for adding descrptive labels of activities and also combining 3 data sets
 
-# Step 5
+### Step 5
 
-# Cleaning the Training related data by adding the required activity labels and varible names
+##### Cleaning the Training related data by adding the required activity labels and varible names
 
-# Applying activity labels to the y_train data
+##### Applying activity labels to the y_train data
 
 for (i in 1:7352) {
   if(y_train$V1[i] == 1) {y_train$V1[i] <- paste("WALKING")}
@@ -81,11 +81,11 @@ names(subject_train) <- c("subject")
 names(y_train) <- c("Activity")
 new_x_train <- cbind(y_train,subject_train,X_train)
 
-# Step 6
+### Step 6
 
-# Cleaning the Test related data by adding the required activity labels and varible names
+#### Cleaning the Test related data by adding the required activity labels and varible names
 
-# Applying labels to the y_test data which has 2947 rows
+#### Applying labels to the y_test data which has 2947 rows
 
 for (i in 1:2947) {
   if(y_test$V1[i] == 1) {y_test$V1[i] <- paste("WALKING")}
@@ -96,48 +96,48 @@ for (i in 1:2947) {
   else  {y_test$V1[i] <- paste("LAYING")}
 }
 
-# Naming the x_test data with the features dataframe. This step adds descriptive names to the test data frame
+#### Naming the x_test data with the features dataframe. This step adds descriptive names to the test data frame
 z <- names(X_test)
 for (i in 1:561) { z[i] <- paste(features[i,2])}
 names(X_test) <- c(z)
 
 
-# Combining y_test with X_test & Subject data  to associate the activity labels & Subjects on to the test data
+#### Combining y_test with X_test & Subject data  to associate the activity labels & Subjects on to the test data
 names(subject_test) <- c("subject") ## This step renames the subject column variable
 names(y_test) <- c("Activity")
 new_x_test <- cbind(y_test,subject_test,X_test)
 
 ## Step 7 is the script for Row binding both the training and test data sets after adding all the descriptive labels
 
-# Step 7
+### Step 7
 
-# Combining the training data and test data to form one dataset
+#### Combining the training data and test data to form one dataset
 
 new_combined <- rbind(new_x_train,new_x_test)
 
 ## Step 8 is for subsetting only the Mean & SD related columns for the DB. The columns were also properly named in one fo the scripts
 
-# Step 8
+### Step 8
 
-# Selecting the data, based on mean & SD. The below mentioned columns are the ones which are related either to a mean value of a SD value
+#### Selecting the data, based on mean & SD. The below mentioned columns are the ones which are related either to a mean value of a SD value
 
 newcombinedata <- new_combined[,c(1,2,3,4,5,6,7,8,43,44,45,46,47,48,83,84,85,86,87,88,123,124,125,126,127,128,163,164,165,166,167,168,203,204,229,230,242,243,255,256,268,269,270,271,272,273,347,348,349,350,351,352,426,427,428,429,430,431,505,506,518,519,531,532,544,545)]
 
-# Change the names of the variables. This step is to give valid names to the selected variables
+#### Change the names of the variables. This step is to give valid names to the selected variables
 temp <- names(newcombinedata)
 temp1 <- make.names(temp)
 names(newcombinedata) <- c(temp1)
 
 ## Step 9 details the script for calculating the average for each activity, subject wise
-#Step 9
+###Step 9
 
-# Finding the means of each measurement, activity wise and subject wise using the "aggregate" command
+#### Finding the means of each measurement, activity wise and subject wise using the "aggregate" command
 
 All_data_mean <- aggregate(newcombinedata[,!names(newcombinedata) %in% c("Activity", "subject")],by=list(Activity=newcombinedata$Activity,subject=newcombinedata$subject),FUN=mean)
 
 ## Step 10 details the script for writing the tidyed data set to a txt file
 
-#Step 10
+###Step 10
 
 Saving the data into a text file using the write.table command
 
