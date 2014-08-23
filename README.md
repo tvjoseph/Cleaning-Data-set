@@ -119,7 +119,7 @@ new_combined <- rbind(new_x_train,new_x_test)
 
 # Step 8
 
-# selecting the data based on mean & SD. The below mentioned columns are the ones which are related either to a mean value of a SD value
+# Selecting the data, based on mean & SD. The below mentioned columns are the ones which are related either to a mean value of a SD value
 
 newcombinedata <- new_combined[,c(1,2,3,4,5,6,7,8,43,44,45,46,47,48,83,84,85,86,87,88,123,124,125,126,127,128,163,164,165,166,167,168,203,204,229,230,242,243,255,256,268,269,270,271,272,273,347,348,349,350,351,352,426,427,428,429,430,431,505,506,518,519,531,532,544,545)]
 
