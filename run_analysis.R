@@ -119,3 +119,9 @@ Step 9
 ## Finding the means of each measurement, activity wise and subject wise using the "aggregate" command
 
 All_data_mean <- aggregate(newcombinedata[,!names(newcombinedata) %in% c("Activity", "subject")],by=list(Activity=newcombinedata$Activity,subject=newcombinedata$subject),FUN=mean)
+
+Step 10
+
+Saving the data into a text file using the write.table command
+
+write.table(All_data_mean,file = "./Clean_data.txt",sep= ";", row.names = F)
