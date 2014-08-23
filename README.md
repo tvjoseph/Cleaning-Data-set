@@ -3,9 +3,9 @@ Cleaning-Data-set
 
 This is a repository for storing all scripts and code book for the assignment cleaning data set
 
-## Steps 1 & 2 are scripts for setting the working directory and downloading the file from website
+# Steps 1 & 2 are scripts for setting the working directory and downloading the file from website
 
-#Step 1
+###Step 1
 #download data from the net using the download command
 
 setwd("D:/R/")
